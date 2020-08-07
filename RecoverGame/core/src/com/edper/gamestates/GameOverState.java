@@ -8,6 +8,7 @@ import java.util.ArrayList;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
+import com.badlogic.gdx.Preferences;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
@@ -26,7 +27,7 @@ public class GameOverState extends State{
 	private String[] returnMessages;
 	private String score;
 	
-	public GameOverState(GameStateManager gsm) {
+	public GameOverState(GameStateManager gsm, String score) {
 		super(gsm);
 		background = new Texture("Screens/gameOverScreen.png");
 		title = "Fim de Jogo!";
@@ -37,6 +38,8 @@ public class GameOverState extends State{
 		font = new BitmapFont(Gdx.files.internal("Fonts/PixelFont32.fnt"));
 		font.setColor(Color.WHITE);
 		layout = new GlyphLayout();
+		
+		this.score = score;
 	}
 
 	@Override
@@ -61,36 +64,8 @@ public class GameOverState extends State{
     	layout.setText(font, scoreMessage);
     	font.draw(sb, scoreMessage, RecoverGame.WIDTH/2 - layout.width/2, RecoverGame.HEIGHT/2 - layout.height/2 + 30);
     	
-    	BufferedReader buffRead = null;
-    	score = "";
-    	ArrayList<String> scoreArray = new ArrayList<String>();
-    	int scoresIndex = 0;
-		try {
-			buffRead = new BufferedReader(new FileReader("scores.txt"));
-		} catch (FileNotFoundException e) {
-			e.printStackTrace();
-		}
-    	try {
-    		while (true) {
-    			if (score != null) {
-    				scoreArray.add(score);
-    				scoresIndex++;
-
-    			} else
-    				break;
-    			score = buffRead.readLine();
-    		}
-    		
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
-    	try {
-			buffRead.close();
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
-    	layout.setText(font, scoreArray.get(scoresIndex-1));
-    	font.draw(sb, scoreArray.get(scoresIndex-1), RecoverGame.WIDTH/2 - layout.width/2, RecoverGame.HEIGHT/2 - layout.height/2 - 35);
+    	layout.setText(font, score);
+    	font.draw(sb, score, RecoverGame.WIDTH/2 - layout.width/2, RecoverGame.HEIGHT/2 - layout.height/2 - 35);
     	
     	for(int index = 0; index < returnMessages.length; index++) {
         	layout.setText(font, returnMessages[index]);

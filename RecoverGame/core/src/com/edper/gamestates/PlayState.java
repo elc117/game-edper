@@ -34,7 +34,7 @@ public class PlayState extends State {
 	
 	private float combo;
 	
-	private float fallSpeed = 0.5f;
+	private float fallSpeed = 0.3f;
 	private float dropFaster = 0f;
 	private long currentTimeMillis;
 	
@@ -88,7 +88,7 @@ public class PlayState extends State {
 			if(Gdx.input.isKeyJustPressed(Input.Keys.LEFT) && !grid.hasHalfPillFalling() && !grid.hasOtherPillsFalling())
 				grid.getPillList().get(currentPill).moveLeft(grid.getMatrix());
 			if(Gdx.input.isKeyPressed(Input.Keys.DOWN) && !grid.hasHalfPillFalling() && !grid.hasOtherPillsFalling())
-				dropFaster = 0.4f;
+				dropFaster = 0.2f;
 			else
 				dropFaster = 0f;
 		}
@@ -125,8 +125,7 @@ public class PlayState extends State {
 		
 		
 		if(grid.getGameOver()) {
-			gsm.set(new GameOverState(gsm));
-			counter.saveScore(score);
+			gsm.set(new GameOverState(gsm, score));
 		}
 			
 		

@@ -124,24 +124,4 @@ public class Counter {
 	public int getNextPillColor2() {
 		return nextPillColor2;
 	}
-	
-	public void saveScore(String score) {
-		BufferedWriter buffWrite = null;
-		try {
-			buffWrite = new BufferedWriter(new FileWriter("scores.txt", true));
-		} catch (IOException e) {
-			
-			e.printStackTrace();
-		}
-		try {
-			buffWrite.append(score + "\n");
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
-		try {
-			buffWrite.close();
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
-	}
 }

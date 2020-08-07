@@ -9,6 +9,7 @@ import java.util.Collections;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
+import com.badlogic.gdx.Preferences;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
@@ -62,56 +63,56 @@ public class HighScoresState extends State {
     	layout.setText(font, returnMessage);
     	font.draw(sb, returnMessage, 10, 20);
         
-        BufferedReader buffRead = null;
-    	score = "";
-    	ArrayList<String> scoreArray = new ArrayList<String>();
-    	ArrayList<Integer> tempScoreArray = new ArrayList<Integer>();
-		try {
-			buffRead = new BufferedReader(new FileReader("scores.txt"));
-		} catch (FileNotFoundException e) {
-			e.printStackTrace();
-		}
-    	try {
-    		while (true) {
-    			if (score != null) {
-    				scoreArray.add(score);
-
-    			} else
-    				break;
-    			score = buffRead.readLine();
-    		}
-    		
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
-    	try {
-			buffRead.close();
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
+//        BufferedReader buffRead = null;
+//    	score = "";
+//    	ArrayList<String> scoreArray = new ArrayList<String>();
+//    	ArrayList<Integer> tempScoreArray = new ArrayList<Integer>();
+//		try {
+//			buffRead = new BufferedReader(new FileReader("scores.txt"));
+//		} catch (FileNotFoundException e) {
+//			e.printStackTrace();
+//		}
+//    	try {
+//    		while (true) {
+//    			if (score != null && score != "") {
+//    				scoreArray.add(score);
+//
+//    			} else
+//    				break;
+//    			score = buffRead.readLine();
+//    		}
+//    		
+//		} catch (IOException e) {
+//			e.printStackTrace();
+//		}
+//    	try {
+//			buffRead.close();
+//		} catch (IOException e) {
+//			e.printStackTrace();
+//		}
+//    	
+//    	for(String score: scoreArray){
+//    		if(score != "")
+//    			tempScoreArray.add(Integer.parseInt(score));
+//		}
+//    	
+//    	Collections.sort(tempScoreArray);
+//    	
+//    	scoreArray.clear();
+//    	
+//    	for(Integer score: tempScoreArray){
+//    		scoreArray.add(score.toString());
+//		}
+//    	
+//    	
+//    	int index = 1;
+//    	while(index < 9 && index <= scoreArray.size()) {
+//    		layout.setText(font, scoreArray.get(scoreArray.size() - index));
+//    		font.draw(sb, scoreArray.get(scoreArray.size() - index), RecoverGame.WIDTH/2 -layout.width+ 170, 500 - layout.height/2 - 50*(index));
+//    		index++;
+//    	}
     	
-    	for(String score: scoreArray){
-    		if(score != "")
-    			tempScoreArray.add(Integer.parseInt(score));
-		}
-    	
-    	Collections.sort(tempScoreArray);
-    	
-    	scoreArray.clear();
-    	
-    	for(Integer score: tempScoreArray){
-    		scoreArray.add(score.toString());
-		}
-    	
-    	
-    	int index = 1;
-    	while(index < 9 && index <= scoreArray.size()) {
-    		layout.setText(font, scoreArray.get(scoreArray.size() - index));
-    		font.draw(sb, scoreArray.get(scoreArray.size() - index), RecoverGame.WIDTH/2 -layout.width+ 170, 500 - layout.height/2 - 50*(index));
-    		index++;
-    	}
-    	
-    	for(index = 1; index < 9 ; index ++) {
+    	for(int index = 1; index < 9 ; index ++) {
     		position = index + "-" ;
     		layout.setText(font, position);
     		font.draw(sb, position, RecoverGame.WIDTH/2 -layout.width - 120, 500 - layout.height/2 - 50*(index));

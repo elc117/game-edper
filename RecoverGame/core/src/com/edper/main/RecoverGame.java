@@ -1,5 +1,7 @@
 package com.edper.main;
 
+import java.util.ArrayList;
+
 import com.badlogic.gdx.ApplicationAdapter;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
@@ -26,7 +28,7 @@ public class RecoverGame extends ApplicationAdapter {
 		spriteBatch = new SpriteBatch();
         gameStateManager = new GameStateManager();
         gameStateManager.push(new IntroState(gameStateManager));
-
+        
         Gdx.gl.glClearColor(1, 0, 0, 1);
 	}
 
@@ -36,4 +38,5 @@ public class RecoverGame extends ApplicationAdapter {
 		gameStateManager.update(Gdx.graphics.getDeltaTime());
         gameStateManager.render(spriteBatch);
 	}
+	
 }
