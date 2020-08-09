@@ -36,6 +36,7 @@ public class HalfPill {
 	
 	public void dropHalfPill(int[][] matrix) {
 		if(this.y + 1 < 16 && matrix[this.y + 1][this.x] == 0) {
+			this.isFalling = true;
 			this.y = this.y + 1;
 		} else {
 			this.isFalling = false;

@@ -26,7 +26,7 @@ public class MenuState extends State {
 		background = new Texture("Screens/mainMenu.png");
 		menuItems = new String[] {
 				"Jogar",
-				"Recordes",
+				"Controles",
 				"Ajuda",
 				"Sair"
 			};
@@ -55,7 +55,7 @@ public class MenuState extends State {
 			if(currentItem == 0)
 				gsm.set(new PlayState(gsm));
 			if(currentItem == 1)
-				gsm.set(new HighScoresState(gsm));
+				gsm.set(new ControlsState(gsm));
 			if(currentItem == 2)
 				gsm.set(new HelpState(gsm));
 			if(currentItem == 3)

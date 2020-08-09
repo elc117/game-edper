@@ -84,6 +84,7 @@ public class Pill {
 		this.isFalling = true; 
 		if(this.isHorizontal) {
 			if(this.y1 + 1 < 16 && this.y2 + 1 < 16 && matrix[this.y1 + 1][this.x1] == 0 && matrix[this.y2 + 1][this.x2] == 0) {
+				this.isFalling = true;
 				this.y1 = this.y1 + 1;
 				this.y2 = this.y2 + 1;
 			}
@@ -92,6 +93,7 @@ public class Pill {
 			}
 		} else {
 			if(this.y2 + 1 < 16 && matrix[this.y2 + 1][this.x2] == 0) {
+				this.isFalling = true;
 				this.y1 = this.y1 + 1;
 				this.y2 = this.y2 + 1;
 			}

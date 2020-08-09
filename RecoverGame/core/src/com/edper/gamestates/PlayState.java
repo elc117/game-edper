@@ -83,9 +83,9 @@ public class PlayState extends State {
 				grid.getPillList().get(currentPill).rotateRight(grid.getMatrix());
 			if(Gdx.input.isKeyJustPressed(Input.Keys.Z) && !grid.hasHalfPillFalling() && !grid.hasOtherPillsFalling())
 				grid.getPillList().get(currentPill).rotateLeft(grid.getMatrix());
-			if(Gdx.input.isKeyJustPressed(Input.Keys.RIGHT) && !grid.hasHalfPillFalling() && !grid.hasOtherPillsFalling())
+			if(Gdx.input.isKeyJustPressed(Input.Keys.RIGHT) && !grid.hasHalfPillFalling() && !grid.hasOtherPillsFalling() && grid.getPillList().get(currentPill).getIsFalling())
 				grid.getPillList().get(currentPill).moveRight(grid.getMatrix());
-			if(Gdx.input.isKeyJustPressed(Input.Keys.LEFT) && !grid.hasHalfPillFalling() && !grid.hasOtherPillsFalling())
+			if(Gdx.input.isKeyJustPressed(Input.Keys.LEFT) && !grid.hasHalfPillFalling() && !grid.hasOtherPillsFalling() && grid.getPillList().get(currentPill).getIsFalling())
 				grid.getPillList().get(currentPill).moveLeft(grid.getMatrix());
 			if(Gdx.input.isKeyPressed(Input.Keys.DOWN) && !grid.hasHalfPillFalling() && !grid.hasOtherPillsFalling())
 				dropFaster = 0.2f;
@@ -125,7 +125,7 @@ public class PlayState extends State {
 		
 		
 		if(grid.getGameOver()) {
-			gsm.set(new GameOverState(gsm, score));
+			gsm.set(new GameOverState(gsm, (int)counter.getScore()));
 		}
 			
 		
@@ -135,13 +135,13 @@ public class PlayState extends State {
 		if(frameTimeSeconds >= fallSpeed - dropFaster && !grid.hasHalfPillFalling() && !grid.hasOtherPillsFalling()) {
 			currentTimeMillis = newTimeMillis;
 			grid.getPillList().get(currentPill).dropPill(grid.getMatrix());
+			grid.updateGrid();
 		}
 		
 		if(!grid.hasPillFalling() && !grid.hasHalfPillFalling()) {
 			combo = grid.removeLine();
 			counter.addScore(combo);
 		}
-			
 		
 		grid.detectGameOver();
 		
@@ -150,16 +150,18 @@ public class PlayState extends State {
 		
 		if(frameTimeSeconds >= fallSpeed){
 			currentTimeMillis = newTimeMillis;
-			for(int i=0; i< grid.getHalfPillList().size(); i++) {
+			for(int i=0; i < grid.getHalfPillList().size(); i++) 
 				grid.getHalfPillList().get(i).dropHalfPill(grid.getMatrix());
-			}
+			
 		}
 		
-		if(frameTimeSeconds >= fallSpeed) {
-			currentTimeMillis = newTimeMillis;
+		grid.updateGrid();
+		
+		if(frameTimeSeconds >= fallSpeed){
 			for(int i = 0; i < grid.getPillList().size()-2; i++)
 				grid.getPillList().get(i).dropPill(grid.getMatrix());
 		}
+		
 		
 		grid.updateGrid();
 		counter.updateCounter(grid.getCovidCount(), grid.getPillList());

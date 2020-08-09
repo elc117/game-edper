@@ -24,22 +24,40 @@ public class GameOverState extends State{
 	
 	private String title;
 	private String scoreMessage;
-	private String[] returnMessages;
-	private String score;
+	private String scoreString;
+	private String highscoreMessage;
+	private int highscore;
+	private String highscoreString;
+	private String returnMessage;
 	
-	public GameOverState(GameStateManager gsm, String score) {
+	private boolean isNewRecord;
+	
+	private Preferences prefs;
+	
+	public GameOverState(GameStateManager gsm, int score) {
 		super(gsm);
-		background = new Texture("Screens/gameOverScreen.png");
+		background = new Texture("Screens/gameOverScreen2.png");
 		title = "Fim de Jogo!";
-		returnMessages = new String[]{
-				"ENTER / ESC - Confirmar"
-		};
+		returnMessage = "ENTER / ESC - Confirmar";
 		scoreMessage = "Pontuacao:";
+		
+		isNewRecord = false;
+		highscoreMessage = "Recorde:";
+		prefs = Gdx.app.getPreferences("recovergame");
+		highscore = prefs.getInteger("highscore", 0);
+		if (score > highscore) {
+			isNewRecord = true;
+			prefs.putInteger("highscore", score);
+			highscore = prefs.getInteger("highscore", 0);
+			prefs.flush();
+		}
+		
 		font = new BitmapFont(Gdx.files.internal("Fonts/PixelFont32.fnt"));
 		font.setColor(Color.WHITE);
 		layout = new GlyphLayout();
 		
-		this.score = score;
+		scoreString = String.valueOf(score);
+		highscoreString = String.valueOf(highscore);
 	}
 
 	@Override
@@ -59,18 +77,28 @@ public class GameOverState extends State{
         sb.draw(background, 0, 0, RecoverGame.WIDTH, RecoverGame.HEIGHT);
         
         layout.setText(font, title);
-    	font.draw(sb, title, RecoverGame.WIDTH/2 - layout.width/2, RecoverGame.HEIGHT/2 - layout.height/2 + 90);
+        font.draw(sb, title, RecoverGame.WIDTH/2 - layout.width/2, RecoverGame.HEIGHT/2 - layout.height/2 + 165);
     	
     	layout.setText(font, scoreMessage);
-    	font.draw(sb, scoreMessage, RecoverGame.WIDTH/2 - layout.width/2, RecoverGame.HEIGHT/2 - layout.height/2 + 30);
+    	font.draw(sb, scoreMessage, RecoverGame.WIDTH/2 - layout.width/2, RecoverGame.HEIGHT/2 - layout.height/2 + 65);
+    	layout.setText(font, scoreString);
+    	font.draw(sb, scoreString, RecoverGame.WIDTH/2 - layout.width/2, RecoverGame.HEIGHT/2 - layout.height/2 + 15);
     	
-    	layout.setText(font, score);
-    	font.draw(sb, score, RecoverGame.WIDTH/2 - layout.width/2, RecoverGame.HEIGHT/2 - layout.height/2 - 35);
+    	if(isNewRecord) {
+    		highscoreMessage = "Novo Recorde!";
+    		font.setColor(Color.YELLOW);
+    	}
+    	layout.setText(font, highscoreMessage);
+		font.draw(sb, highscoreMessage, RecoverGame.WIDTH/2 - layout.width/2, RecoverGame.HEIGHT/2 - layout.height/2 - 70);
     	
-    	for(int index = 0; index < returnMessages.length; index++) {
-        	layout.setText(font, returnMessages[index]);
-        	font.draw(sb, returnMessages[index], 10, index*layout.height + 20*index + 20);	
-        }
+    	layout.setText(font, highscoreString);
+    	font.draw(sb, highscoreString, RecoverGame.WIDTH/2 - layout.width/2, RecoverGame.HEIGHT/2 - layout.height/2 - 120);
+    	
+    	font.setColor(Color.WHITE);
+    	
+        layout.setText(font, returnMessage);
+        font.draw(sb, returnMessage, 10, 20);	
+        
         sb.end();
 		
 	}
