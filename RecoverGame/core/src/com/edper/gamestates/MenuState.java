@@ -27,8 +27,7 @@ public class MenuState extends State {
 		menuItems = new String[] {
 				"Jogar",
 				"Controles",
-				"Ajuda",
-				"Sair"
+				"Ajuda"
 			};
 		font = new BitmapFont(Gdx.files.internal("Fonts/PixelFont32.fnt"));
 		layout = new GlyphLayout();
@@ -58,8 +57,6 @@ public class MenuState extends State {
 				gsm.set(new ControlsState(gsm));
 			if(currentItem == 2)
 				gsm.set(new HelpState(gsm));
-			if(currentItem == 3)
-				Gdx.app.exit();
         }
 		if(Gdx.input.isKeyJustPressed(Input.Keys.ESCAPE))
 			Gdx.app.exit();
