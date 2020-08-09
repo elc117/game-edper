@@ -31,8 +31,6 @@ public class MenuState extends State {
 			};
 		font = new BitmapFont(Gdx.files.internal("Fonts/PixelFont32.fnt"));
 		layout = new GlyphLayout();
-		for(String menuItem : menuItems)
-			layout.setText(font, menuItem);
 	}
 
 	@Override
@@ -76,7 +74,8 @@ public class MenuState extends State {
         		font.setColor(Color.YELLOW);
         	else
         		font.setColor(Color.WHITE);
-        	font.draw(sb, menuItems[index], Gdx.graphics.getWidth()/2 - layout.width, Gdx.graphics.getHeight()/2 - index*layout.height - 20*index - 50);
+        	layout.setText(font, menuItems[index]);
+        	font.draw(sb, menuItems[index], Gdx.graphics.getWidth()/2 - layout.width/2, Gdx.graphics.getHeight()/2 - index*layout.height - 25*index - 50);
         }
         sb.end();
 	}
