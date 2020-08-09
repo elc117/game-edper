@@ -149,6 +149,7 @@ public class PlayState extends State {
 			grid.createPill();
 		
 		if(frameTimeSeconds >= fallSpeed){
+			currentTimeMillis = newTimeMillis;
 			for(int i=0; i< grid.getHalfPillList().size(); i++) {
 				grid.getHalfPillList().get(i).dropHalfPill(grid.getMatrix());
 			}
