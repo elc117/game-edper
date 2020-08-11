@@ -29,7 +29,7 @@ public class Covid {
 	public Covid(int[][] matrix, int listSize) {
 		this.x = genX();
 		this.y = genY();
-		if(matrix[this.y][this.x] != 0) {
+		while(matrix[this.y][this.x] != 0) {
 			this.x = genX();
 			this.y = genY();
 		}
