@@ -1,5 +1,6 @@
 package com.edper.figures;
 
+import java.lang.Math; 
 import java.util.Random;
 
 import com.badlogic.gdx.graphics.Texture;
@@ -53,7 +54,7 @@ public class Covid {
 	}
 
 	private int genX() {
-		return rand.nextInt(8);
+		return (int) Math.floor(Math.random() * Math.floor(8));
 	}
 	
 	private int genY() {
